@@ -1,5 +1,5 @@
-# spring_example_modal
-Simple Spring Boot/React Example with Modal forms
+# spring_example_security
+Simple Spring Boot/React Example with Modal forms and Security
 
 This is a simple Spring Boot backend, React frontend example.
 
@@ -10,10 +10,14 @@ API for handling the Car objects in the application.
 The React application makes use of the React-Bootstrap package for
 components and styling, and uses Modal dialogs for editing of the car data.
 
+There is a Spring REST Controller with a "/users" mapping to access the API for handling User objects in the
+application, and this is only accessable to users with the ADMIN role
+
 # Spring Packages Used:
 
 * Spring Boot
 * Spring Web
+* Spring Security
 * Spring Thymeleaf
 * Spring Data JPA
 * Spring Devtools
@@ -55,13 +59,7 @@ server project.
 
 # Tests
 
-The project performs 3 types of tests:  Unit tests for the Spring Controller,
-Postman integration tests for the API, and TestCafe end-to-end web tests.
-
-# Continuous Integration
-
-The project uses GitHub's Actions to verify the build of the Java and JavaScript
-portions of the project, as well as performing all 3 types of testing.
+Tests and CI are yet to come for this example.
 
 
 
