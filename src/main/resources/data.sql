@@ -1,9 +1,12 @@
-INSERT INTO car (make, model, year) VALUES ('Ford', 'Mustang', 1998);
-INSERT INTO car (make, model, year) VALUES ('Acura', 'ILX', 2015);
-INSERT INTO car (make, model, year) VALUES ('Honda', 'CRV', 2018);
+REPLACE INTO car  VALUES (1, 'Ford', 'Mustang', 1998);
+REPLACE INTO car  VALUES (2, 'Acura', 'ILX', 2015);
+REPLACE INTO car  VALUES (3, 'Honda', 'CRV', 2018);
 
 REPLACE INTO roles VALUES (1,'USER');
 REPLACE INTO roles VALUES (2,'ADMIN');
+
+REPLACE INTO meetings VALUES (1,'Department');
+REPLACE INTO meetings VALUES (2,'Division');
 
 REPLACE INTO users (user_id, user_name, email, password, first_name, last_name, active)
 VALUES (1, 'user', 'user@acme.com',

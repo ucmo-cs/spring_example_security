@@ -37,6 +37,10 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_meeting", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+    private Set<Meeting> meetings;
+
     public Integer getId() {
         return id;
     }
@@ -101,6 +105,14 @@ public class User {
         this.roles = roles;
     }
 
+    public Set<Meeting> getMeetings() {
+        return meetings;
+    }
+
+    public void setMeetings(Set<Meeting> meetings) {
+        this.meetings = meetings;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -112,6 +124,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", active=" + active +
                 ", roles=" + roles +
+                ", meetings=" + meetings +
                 '}';
     }
 

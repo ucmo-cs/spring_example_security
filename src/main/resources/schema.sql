@@ -6,3 +6,4 @@ CREATE TABLE car (
   year   INT         NOT NULL,
   PRIMARY KEY (id)
 );
+
