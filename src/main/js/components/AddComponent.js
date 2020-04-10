@@ -24,7 +24,11 @@ class AddComponent extends Component{
         e.preventDefault();
         let car = {make: this.state.make, model: this.state.model, year: this.state.year};
         ApiService.addCar(car)
-            .then(() => ApiService.fetchCars())
+            .then(() => {
+                 console.log("Help!");
+                return ApiService.fetchCars();
+
+            })
             .then(res => {
                 this.props.reloadCarList(res.data);
                 this.close();

@@ -1,11 +1,45 @@
 <!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .button {
+            background-color: #1c87c9;
+            border: none;
+            color: white;
+            padding:10px 34px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <h1 className="text-center">Status Page</h1>
+
+<a th:href="@{/info}">Info link</a>
+
+<br>
+<br>
+
+<form method="GET" th:action="@{/InformationalSessions}">
+    <input type="submit" value="Click me!!!">
+</form>
+
+<br>
+
+<button onclick="document.location='/InformationalSessions'">2nd button</button>
+
+<br>
+
+<a th:href="@{/info}" class="button">Info
+
+<br>
 
 </body>
 </html>
