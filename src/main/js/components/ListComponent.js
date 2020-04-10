@@ -92,7 +92,8 @@ class ListComponent extends React.Component {
                     }
                     </tbody>
                 </Table>
-            </div>
+                <Button variant="primary" onClick={() => document.location = '/server_cars'}> Go To Server Version</Button>
+             </div>
         )
     }
 }

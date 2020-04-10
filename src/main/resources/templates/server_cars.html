@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8"/>
+    <title>ReactJS + Spring Data + Spring Security REST</title>
+    <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css">
+    <style>
+        .padded {
+            margin-left: 200px;
+            margin-right: 200px;
+        }
+    </style>
+</head>
+<body>
+
+Logged in user: <b th:inline="text"> [[${#httpServletRequest.remoteUser}]] </b>
+<form th:action="@{/logout}" method="POST">
+    <input class="btn btn-primary" type="submit" value="Logout"/>
+</form>
+
+<h1 class="text-center">Server Generated Car List</h1>
+<div class="padded">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+        </tr>
+        </thead>
+        <tr th:each="car : ${cars}">
+            <td th:text="${car.getId()}"/>
+            <td th:text="${car.getMake()}"/>
+            <td th:text="${car.getModel()}"/>
+            <td th:text="${car.getYear()}"/>
+        </tr>
+    </table>
+    <button class="btn btn-primary" onClick="document.location = '/'"> Go To React Version</button>
+</div>
+
+</body>
+</html>

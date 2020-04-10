@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/info").permitAll()
                 .antMatchers("/").hasAnyAuthority("USER","ADMIN")
+                .antMatchers("/server_cars").hasAnyAuthority("USER","ADMIN")
                 .antMatchers("/cars").hasAnyAuthority("USER","ADMIN")
                 .antMatchers("/cars/**").hasAnyAuthority("USER","ADMIN")
                 .antMatchers(HttpMethod.POST, "/cars").hasAnyAuthority("USER","ADMIN")

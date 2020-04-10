@@ -43056,7 +43056,12 @@ function (_React$Component) {
             return _this4.editCar(car.id);
           }
         }, " Edit")));
-      }))));
+      }))), React.createElement(react_bootstrap_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        variant: "primary",
+        onClick: function onClick() {
+          return document.location = '/server_cars';
+        }
+      }, " Go To Server Version"));
     }
   }]);
 
