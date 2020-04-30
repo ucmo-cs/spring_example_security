@@ -6,7 +6,7 @@ CREATE TABLE car (
   year   INT         NOT NULL
 );
 
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users cascade;
 CREATE TABLE users (
   user_id       SERIAL PRIMARY KEY,
   user_name     VARCHAR(50) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE users (
   active        BOOLEAN NOT NULL
 );
 
-DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS role cascade;
 CREATE TABLE role (
   role_id   SERIAL PRIMARY KEY,
   role      VARCHAR(50) NOT NULL
