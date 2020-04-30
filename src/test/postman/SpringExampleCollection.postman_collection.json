@@ -1,10 +1,175 @@
 {
 	"info": {
-		"_postman_id": "572fcf1a-ab56-4fcc-977b-0d5e72796816",
-		"name": "SpringExampleCollection",
+		"_postman_id": "4f9de97f-82e9-4a47-a80b-ca7dfa45a801",
+		"name": "SpringExampleSecurityCollection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Get Login Form",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "921460f9-c35e-498e-9289-22190df6f38a",
+						"exec": [
+							"// Parse HTML and get the CSRF Token",
+							"var responseHTML = cheerio(responseBody);",
+							"var csrfTokenName = pm.cookies.get(\"XSRF-TOKEN\");",
+							"//var csrfTokenName = responseHTML.find('[name=\"_csrf\"]').attr('value');",
+							"console.log(csrfTokenName);",
+							"pm.collectionVariables.set(\"csrfTokenName\", csrfTokenName);",
+							"",
+							"pm.test(\"Get Login test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3cf6a80a-1687-40c7-991e-8e7e78ace83e",
+						"exec": [
+							"// Parse Cookie and get the CSRF Token",
+							"var csrfTokenName = pm.cookies.get(\"XSRF-TOKEN\");",
+							"console.log(csrfTokenName);",
+							"pm.collectionVariables.set(\"csrfTokenName\", csrfTokenName);",
+							"",
+							"pm.test(\"Login test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:8080"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:8080/login"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{csrfTokenName}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_csrf",
+							"value": "{{csrfTokenName}}",
+							"type": "text"
+						},
+						{
+							"key": "user_name",
+							"value": "user",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "Submit",
+							"value": "Login",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Get All Cars",
 			"event": [
@@ -47,7 +212,13 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{crsfTokenName}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "localhost:8080/cars/",
 					"host": [
@@ -70,6 +241,7 @@
 					"script": {
 						"id": "15cccc5c-b9c6-41a6-bfb6-c96971592ee4",
 						"exec": [
+							"",
 							"pm.test(\"Status test\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
@@ -96,7 +268,13 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{crsfTokenName}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "localhost:8080/cars/1",
 					"host": [
@@ -149,8 +327,31 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json; charset=UTF-8",
+						"type": "text",
+						"value": "application/json; charset=UTF-8"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{csrfTokenName}}",
 						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json, text/plain, */*",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin",
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
@@ -171,7 +372,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete Car 4",
+			"name": "Delete Car 4 Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -190,7 +391,13 @@
 			],
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{csrfTokenName}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "localhost:8080/cars/{{car_id}}",
 					"host": [
@@ -200,39 +407,116 @@
 					"path": [
 						"cars",
 						"{{car_id}}"
+					],
+					"query": [
+						{
+							"key": "X-XSRF_TOKEN",
+							"value": "{{crsfTokenName}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "max-age=0"
+					},
+					{
+						"key": "Upgrade-Insecure-Requests",
+						"value": "1"
+					},
+					{
+						"key": "Origin",
+						"value": "http://localhost:8080"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.113 Safari/537.36"
+					},
+					{
+						"key": "Accept",
+						"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "navigate"
+					},
+					{
+						"key": "Sec-Fetch-User",
+						"value": "?1"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "document"
+					},
+					{
+						"key": "Referer",
+						"value": "http://localhost:8080/"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "en-US,en;q=0.9"
+					},
+					{
+						"key": "Cookie",
+						"value": "JSESSIONID=04BC4BF43DF33C169A16A725ABD751D4; XSRF-TOKEN=78f48453-d8ba-45d5-a7dd-b7acd04aeb42"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "_csrf",
+							"value": "{{csrfTokenName}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"logout"
 					]
 				}
 			},
 			"response": []
 		}
 	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "d7ebaecd-969e-4988-963c-b3873d5648e1",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"id": "473ec041-911e-49dd-b645-4ddf3e96b52d",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
 	"variable": [
 		{
-			"id": "789c30ec-57dc-4ec8-9a33-b4a6c9c289ea",
+			"id": "84fc9a3d-b1c7-489c-9990-f6ac310f30a9",
+			"key": "csrfTokenName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "0ba0710b-f09f-46cb-a67c-9eeb2b66ef09",
 			"key": "car_id",
-			"value": "0",
+			"value": "",
 			"type": "string"
 		}
 	],
