@@ -43085,7 +43085,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var CAR_API_BASE_URL = 'http://localhost:8080/cars';
+var CAR_API_BASE_URL = '/cars';
 var CSRF_TOKEN = document.cookie.match(new RegExp("XSRF-TOKEN=([^;]+)"))[1];
 var instance = axios__WEBPACK_IMPORTED_MODULE_2___default.a.create({
   headers: {
