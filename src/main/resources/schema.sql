@@ -22,3 +22,12 @@ CREATE TABLE role (
   role_id   SERIAL PRIMARY KEY,
   role      VARCHAR(50) NOT NULL
 );
+
+DROP TABLE IF EXISTS user_role;
+CREATE TABLE user_role (
+  user_id   INTEGER,
+  role_id   INTEGER,
+  FOREIGN KEY (user_id) references users(user_id),
+  FOREIGN KEY (role_id) references role(role_id)
+);
+
