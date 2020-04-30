@@ -17,8 +17,8 @@ CREATE TABLE users (
   active        BOOLEAN NOT NULL
 );
 
-DROP TABLE IF EXISTS role cascade;
-CREATE TABLE role (
+DROP TABLE IF EXISTS roles cascade;
+CREATE TABLE roles (
   role_id   SERIAL PRIMARY KEY,
   role      VARCHAR(50) NOT NULL
 );
@@ -28,6 +28,6 @@ CREATE TABLE user_role (
   user_id   INTEGER,
   role_id   INTEGER,
   FOREIGN KEY (user_id) references users(user_id),
-  FOREIGN KEY (role_id) references role(role_id)
+  FOREIGN KEY (role_id) references roles(role_id)
 );
 
