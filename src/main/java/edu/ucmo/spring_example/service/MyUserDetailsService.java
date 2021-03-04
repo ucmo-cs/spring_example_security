@@ -26,7 +26,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String userName) {
         User user = userDao.findByUserName(userName);
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException(String.format("The username %s doesn't exist", userName));
         }
 
