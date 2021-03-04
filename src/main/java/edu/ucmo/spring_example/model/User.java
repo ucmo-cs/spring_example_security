@@ -30,12 +30,8 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "active")
-    private Boolean active;
-
-    @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+    @Column(name = "admin")
+    private Boolean admin;
 
     public Integer getId() {
         return id;
@@ -85,21 +81,9 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Boolean getActive() {
-        return active;
-    }
+    public Boolean getAdmin() { return admin; }
 
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+    public void setAdmin(Boolean admin) { this.admin = admin; }
 
     @Override
     public String toString() {
@@ -110,8 +94,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", active=" + active +
-                ", roles=" + roles +
+                ", admin=" + admin +
                 '}';
     }
 

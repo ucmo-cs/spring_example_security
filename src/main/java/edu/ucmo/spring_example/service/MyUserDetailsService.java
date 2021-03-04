@@ -1,6 +1,5 @@
 package edu.ucmo.spring_example.service;
 
-import edu.ucmo.spring_example.model.Role;
 import edu.ucmo.spring_example.model.User;
 import edu.ucmo.spring_example.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,20 +29,22 @@ public class MyUserDetailsService implements UserDetailsService {
         if(user == null) {
             throw new UsernameNotFoundException(String.format("The username %s doesn't exist", userName));
         }
-        List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
-        return buildUserForAuthentication(user, authorities);
-    }
 
-    private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
-        Set<GrantedAuthority> roles = new HashSet<>();
-        for (Role role : userRoles) {
-            roles.add(new SimpleGrantedAuthority(role.getRole()));
+        // Create an empty list of authorities
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        // Based on the User data, grant either the User or Admin authority
+        if (user.getAdmin() ) {
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("USER"));
         }
-        return new ArrayList<>(roles);
+
+        return buildUserForAuthentication(user, authorities);
     }
 
     private UserDetails buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
-                user.getActive(), true, true, true, authorities);
+                true, true, true, true, authorities);
     }
 }
